@@ -1,0 +1,340 @@
+/* DramaForge workflow — flat black, white, and lime studio. */
+.dramaforge-theme {
+  --ar-bg: #f8f7fc;
+  --ar-bg-grad-a: #f8f7fc;
+  --ar-bg-grad-b: #f8f7fc;
+  --ar-surface: #ffffff;
+  --ar-surface-2: #ffffff;
+  --ar-hairline: #e5e7eb;
+  --ar-hairline-strong: #8b5cf6;
+  --ar-text: #17131f;
+  --ar-text-2: #363a40;
+  --ar-text-3: #62666d;
+  --ar-text-4: #858a92;
+  --ar-accent: #7c3aed;
+  --ar-accent-2: #6d28d9;
+  --ar-accent-soft: rgba(124, 58, 237, 0.45);
+  --ar-accent-dim: rgba(124, 58, 237, 0.16);
+  --ar-accent-glow: rgba(124, 58, 237, 0.22);
+  --ar-good: #7c3aed;
+  --ar-warn: #d97706;
+  --ar-danger: #e11d48;
+
+  color: var(--ar-text);
+  background: var(--ar-bg);
+}
+
+.dramaforge-glass-panel {
+  background: #ffffff;
+  border: 1px solid var(--ar-hairline);
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.dramaforge-btn-primary {
+  -webkit-appearance: none;
+  appearance: none;
+  color: #17131f;
+  background-color: #7c3aed;
+  background-image: none;
+  box-shadow: none;
+}
+
+.dramaforge-btn-primary:hover:not(:disabled) {
+  background-color: #6d28d9;
+}
+
+.dramaforge-btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dramaforge-btn-secondary {
+  color: var(--ar-text-2);
+  border: 1px solid var(--ar-hairline);
+  background: #ffffff;
+}
+
+.dramaforge-btn-secondary:hover:not(:disabled) {
+  color: var(--ar-text);
+  background: #f1f3f5;
+  border-color: var(--ar-hairline-strong);
+}
+
+.dramaforge-input {
+  background: #ffffff;
+  border: 1px solid var(--ar-hairline);
+  color: var(--ar-text);
+}
+
+.dramaforge-input::placeholder {
+  color: var(--ar-text-4);
+}
+
+.dramaforge-input:focus {
+  outline: none;
+  border-color: var(--ar-accent-soft);
+  box-shadow: 0 0 0 2px var(--ar-accent-dim);
+}
+
+.df-shot-card {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr) 7.5rem;
+  gap: 1rem;
+  align-items: stretch;
+  border: 1px solid var(--ar-hairline);
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: none;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.df-shot-actions {
+  display: flex;
+  width: 7.5rem;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.5rem;
+  border-left: 1px solid var(--ar-hairline);
+  background: #f8f7fc;
+  padding: 0.75rem;
+  box-sizing: border-box;
+}
+
+.df-shot-actions > * {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.df-shot-card:hover {
+  border-color: var(--ar-accent-soft);
+}
+
+@media (max-width: 900px) {
+  .df-shot-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+.df-shot-thumb {
+  position: relative;
+  min-height: 112px;
+  background: #17131f;
+}
+
+.df-shot-thumb img,
+.df-shot-thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 112px;
+}
+
+.df-shot-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.df-shot-status-done {
+  background: rgba(124, 58, 237, 0.2);
+  color: var(--ar-good);
+}
+
+.df-shot-status-run {
+  background: var(--ar-accent-dim);
+  color: var(--ar-accent-2);
+}
+
+.df-shot-status-wait {
+  background: #f1f3f5;
+  color: var(--ar-text-3);
+}
+
+.df-shot-status-fail {
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--ar-danger);
+}
+
+.df-shot-fail-reason {
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  border-radius: 10px;
+  background: rgba(248, 113, 113, 0.1);
+  padding: 0.5rem 0.65rem;
+  font-size: 12px;
+  line-height: 1.5;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.df-shot-fail-reason__summary {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+  color: var(--ar-danger);
+  cursor: pointer;
+  list-style: none;
+}
+.df-shot-fail-reason__summary::-webkit-details-marker { display: none; }
+.df-shot-fail-reason__summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 10px;
+  transition: transform 0.15s ease;
+}
+details[open] .df-shot-fail-reason__summary::before {
+  transform: rotate(90deg);
+}
+
+.df-shot-fail-reason__body {
+  margin-top: 0.4rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  color: var(--ar-text-2);
+}
+
+.df-pipeline-step {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.df-pipeline-step:hover {
+  background: #f1f3f5;
+}
+
+.df-pipeline-step.active {
+  border-color: var(--ar-accent-soft);
+  background: var(--ar-accent-dim);
+  box-shadow: none;
+}
+
+.df-pipeline-step.done .df-pipeline-dot {
+  background: #7c3aed;
+  color: #17131f;
+}
+
+.df-pipeline-step.active .df-pipeline-dot {
+  background: var(--ar-accent);
+  color: #17131f;
+  box-shadow: none;
+}
+
+.df-pipeline-dot {
+  display: flex;
+  height: 22px;
+  width: 22px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(15, 55, 95, 0.08);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ar-text-4);
+}
+
+.df-shot-params {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--ar-hairline);
+  background: #f8f7fc;
+  padding: 0.45rem 0.65rem;
+  font-size: 10px;
+  color: var(--ar-text-4);
+}
+
+.df-shot-params span strong {
+  font-weight: 500;
+  color: var(--ar-text-3);
+}
+
+.df-shot-stepper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.df-shot-step {
+  border-radius: 999px;
+  border: 1px solid var(--ar-hairline);
+  padding: 0.2rem 0.55rem;
+  font-size: 9px;
+  color: var(--ar-text-4);
+  background: #ffffff;
+}
+
+.df-shot-step.done {
+  color: var(--ar-good);
+  border-color: rgba(124, 58, 237, 0.45);
+}
+
+.df-shot-step.active {
+  color: var(--ar-accent-2);
+  border-color: var(--ar-accent-soft);
+  background: var(--ar-accent-dim);
+  box-shadow: none;
+}
+
+.df-shot-thumb-badge {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 1;
+}
+
+.df-shot-thumb-duration {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 1;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 0.1rem 0.4rem;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+/* Inherit shell thin scrollbars inside DramaForge workbench */
+.dramaforge-theme {
+  scrollbar-width: thin;
+  scrollbar-color: #c7ccd1 transparent;
+}
+
+.dramaforge-theme ::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.dramaforge-theme ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dramaforge-theme ::-webkit-scrollbar-thumb {
+  background: #c7ccd1;
+  border-radius: 999px;
+}
+
+.dramaforge-theme ::-webkit-scrollbar-thumb:hover {
+  background: #aeb4bb;
+}
+

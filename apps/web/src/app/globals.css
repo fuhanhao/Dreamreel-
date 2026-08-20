@@ -1,0 +1,283 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "../components/shell/pf-theme.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-geist-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Consolas,
+    "Liberation Mono", monospace;
+  --background: #f8f7fc;
+  --foreground: #17131f;
+  --card: #ffffff;
+  --card-foreground: #17131f;
+  --popover: #ffffff;
+  --popover-foreground: #17131f;
+  --primary: #7c3aed;
+  --primary-foreground: #17131f;
+  --secondary: #f0f3f5;
+  --secondary-foreground: #17131f;
+  --muted: #f1f3f5;
+  --muted-foreground: #62666d;
+  --accent: #eaffb5;
+  --accent-foreground: #17131f;
+  --destructive: #e11d48;
+  --border: #e5e7eb;
+  --input: #dfe2e6;
+  --ring: rgba(124, 58, 237, 0.55);
+  --chart-1: #7c3aed;
+  --chart-2: #17131f;
+  --chart-3: #6b7280;
+  --chart-4: #f5b400;
+  --chart-5: #7c3aed;
+  --radius: 0.625rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #17131f;
+  --sidebar-primary: #7c3aed;
+  --sidebar-primary-foreground: #17131f;
+  --sidebar-accent: #f3e8ff;
+  --sidebar-accent-foreground: #17131f;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: rgba(124, 58, 237, 0.55);
+  --geo-brand: #7c3aed;
+  --geo-brand-deep: #8b5cf6;
+  --geo-blue: #17131f;
+  --geo-orange: #7c3aed;
+  --geo-gold: #6d28d9;
+  --geo-shadow: none;
+  --geo-shadow-md: 0 4px 12px rgba(23, 19, 31, 0.04);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --radius-sm: calc(var(--radius) * 0.65);
+  --radius-md: calc(var(--radius) * 0.82);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.35);
+  --radius-2xl: calc(var(--radius) * 1.7);
+}
+
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+}
+
+/* 不支持 svh 的浏览器会丢掉整条 min-height；同规则内用 vh 兜底 */
+.min-h-screen.min-h-svh {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+body {
+  color: var(--foreground);
+  background-color: var(--background);
+  font-family: "Noto Sans SC", "PingFang SC", var(--font-geist-sans), system-ui, -apple-system, "Microsoft YaHei", sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.geo-glass {
+  border: 1px solid var(--border);
+  background: #ffffff;
+  box-shadow: none;
+}
+
+/* Neon CTA with accessible dark text. */
+.geo-cta {
+  -webkit-appearance: none;
+  appearance: none;
+  color: #17131f;
+  background-color: #7c3aed;
+}
+.geo-cta:hover:not(:disabled) {
+  background-color: #6d28d9;
+}
+
+/* dramaforge 按钮回退 — 确保 Turbopack 不丢失样式 */
+.dramaforge-btn-primary {
+  color: #17131f !important;
+  background-color: #7c3aed;
+}
+.dramaforge-btn-secondary {
+  color: #334155;
+  border: 1px solid var(--border);
+  background: #ffffff;
+}
+
+.geo-hero {
+  position: relative;
+  overflow: hidden;
+  color: white;
+  background: #17131f;
+  box-shadow: none;
+}
+
+.geo-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(120deg, black 20%, transparent 78%);
+}
+
+.geo-pitch {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.geo-pitch:hover {
+  transform: translateY(-2px);
+  border-color: #cbd0d6;
+  box-shadow: var(--geo-shadow-md);
+}
+
+.geo-metric {
+  position: relative;
+  overflow: hidden;
+}
+
+.geo-metric::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--geo-brand);
+}
+
+.geo-gradient-text {
+  background: none;
+  color: var(--foreground);
+}
+
+.geo-page-header {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--pf-line, var(--border));
+  border-radius: var(--pf-radius, 14px);
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.geo-page-header::before {
+  display: none;
+}
+
+/* Chrome 兼容：sticky + backdrop-filter 需要硬件加速 */
+.sticky-backdrop {
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.geo-fade-up {
+  animation: geo-fade-up 0.5s ease both;
+}
+
+@keyframes geo-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── dramaforge theme variables & critical components ── */
+.dramaforge-theme {
+  --ar-bg: #f8f7fc;
+  --ar-bg-grad-a: #f8f7fc;
+  --ar-bg-grad-b: #f8f7fc;
+  --ar-surface: #ffffff;
+  --ar-surface-2: #ffffff;
+  --ar-hairline: #e5e7eb;
+  --ar-hairline-strong: #8b5cf6;
+  --ar-text: #17131f;
+  --ar-text-2: #363a40;
+  --ar-text-3: #62666d;
+  --ar-text-4: #858a92;
+  --ar-accent: #7c3aed;
+  --ar-accent-2: #6d28d9;
+  --ar-accent-soft: rgba(124, 58, 237, 0.45);
+  --ar-accent-dim: rgba(124, 58, 237, 0.16);
+  --ar-accent-glow: rgba(124, 58, 237, 0.22);
+  --ar-good: #7c3aed;
+  --ar-warn: #d97706;
+  --ar-danger: #e11d48;
+}
+
+.dramaforge-btn-primary {
+  color: #17131f;
+  background-color: #7c3aed;
+  box-shadow: none;
+}
+.dramaforge-btn-primary:hover:not(:disabled) { background-color: #6d28d9; }
+.dramaforge-btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.dramaforge-btn-secondary {
+  color: var(--ar-text-2);
+  border: 1px solid var(--ar-hairline);
+  background: #ffffff;
+}
+.dramaforge-btn-secondary:hover:not(:disabled) {
+  color: var(--ar-text);
+  background: #f1f3f5;
+  border-color: var(--ar-hairline-strong);
+}
+
+.dramaforge-input {
+  background: #ffffff;
+  border: 1px solid var(--ar-hairline);
+  color: var(--ar-text);
+}
+.dramaforge-input::placeholder { color: var(--ar-text-4); }

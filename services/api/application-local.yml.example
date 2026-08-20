@@ -1,0 +1,19 @@
+dreamreel:
+  ark:
+    base-url: https://ark.cn-beijing.volces.com
+    # 可选回退；推荐在前端「API Key 设置」填写 Seedance / 方舟 Key
+    api-key:
+    default-model: doubao-seedance-2-5-260628
+    fast-model: doubao-seedance-2-0-fast-260128
+    watermark: false
+  speech:
+    base-url: https://openspeech.bytedance.com
+    app-id: "your-app-id"
+    access-key: your-access-token
+    secret-key: your-secret-key
+    default-speaker: zh_female_xiaohe_uranus_bigtts
+    sample-rate: 24000
+  tokenfree:
+    base-url: https://www.tokenfree.com
+    api-key: sk-your-tokenfree-api-key
+    default-model: doubao-seedance-2-5-260628

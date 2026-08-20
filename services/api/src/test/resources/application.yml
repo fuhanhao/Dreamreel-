@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+
+dreamreel:
+  security:
+    jwt-secret: test-secret-key-for-unit-tests-32bytes!!
+    jwt-expiration-ms: 86400000
+  admin:
+    email: admin@test.local
+    password: admin123456
+    display-name: Admin
+    auto-create: false

@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build
+.next/
+out/
+dist/
+build/
+target/
+*.class
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Env
+.env
+.env.local
+.env.*.local
+services/api/application-local.yml
+services/api/.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Spring Boot
+services/api/target/
+
+# Docker volumes
+data/
+
+# Misc
+*.tsbuildinfo
+next-env.d.ts
+
+# Database dumps (local only)
+dreamreel.dump
+*.dump
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Local scratch / debug files
+tmp-*
+tmp-source.tar.gz

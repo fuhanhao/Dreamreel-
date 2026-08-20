@@ -1,0 +1,4 @@
+ALTER TABLE dramaforge_jobs
+    ADD COLUMN IF NOT EXISTS progress_current INT NOT NULL DEFAULT 0,
+    ADD COLUMN IF NOT EXISTS progress_total INT NOT NULL DEFAULT 0,
+    ADD COLUMN IF NOT EXISTS progress_message VARCHAR(500);

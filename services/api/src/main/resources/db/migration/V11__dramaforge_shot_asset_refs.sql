@@ -1,0 +1,2 @@
+ALTER TABLE dramaforge_shots ADD COLUMN IF NOT EXISTS scene_ref VARCHAR(200);
+ALTER TABLE dramaforge_shots ADD COLUMN IF NOT EXISTS prop_refs VARCHAR(2000);

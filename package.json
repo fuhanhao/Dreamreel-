@@ -1,0 +1,26 @@
+{
+  "name": "dreamreel",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI 短剧 SaaS 平台 - 画布工作流 + 多模型视频生成",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=apps/web",
+    "build:web": "npm run build --workspace=apps/web",
+    "lint": "npm run lint --workspace=apps/web",
+    "api:dev": "cd services/api && mvn spring-boot:run",
+    "api:build": "cd services/api && mvn -q package -DskipTests",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "start:all": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-all.ps1",
+    "stop:all": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stop-all.ps1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

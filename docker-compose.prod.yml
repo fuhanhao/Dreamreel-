@@ -1,0 +1,81 @@
+# Dreamreel 生产部署
+# - Web/API 仅绑定 127.0.0.1，由宿主机 Nginx 提供 HTTPS
+# - Postgres/Redis 对外开放宿主机端口 7052/7053（运维/同步用；务必强密码 + 防火墙限源）
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: dreamreel-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dreamreel
+      POSTGRES_USER: dreamreel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "7052:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dreamreel -d dreamreel"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: dreamreel-redis
+    restart: unless-stopped
+    ports:
+      - "7053:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    image: ghcr.io/fuhanhao/dreamreel-api:${IMAGE_TAG}
+    container_name: dreamreel-api
+    restart: unless-stopped
+    env_file: .env.prod
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/dreamreel
+      SPRING_DATASOURCE_USERNAME: dreamreel
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+      MEDIA_STORAGE_PATH: /app/data/media
+      MEDIA_UPLOAD_PATH: /app/data/uploads
+      MEDIA_PUBLIC_BASE_URL: https://www.dreamreel.com/api/v1/media
+      MEDIA_UPLOAD_PUBLIC_BASE_URL: https://www.dreamreel.com/api/v1/uploads
+    ports:
+      - "127.0.0.1:7051:7051"
+    volumes:
+      - api_media:/app/data/media
+      - api_uploads:/app/data/uploads
+    depends_on:
+      - postgres
+      - redis
+
+  web:
+    image: ghcr.io/fuhanhao/dreamreel-web:${IMAGE_TAG}
+    container_name: dreamreel-web
+    restart: unless-stopped
+    env_file: .env.prod
+    environment:
+      # 留空则浏览器走同源 /api/v1（需 Nginx 反代）；改配置后 restart web 即可
+      API_BASE_URL: ${API_BASE_URL}
+    ports:
+      - "127.0.0.1:7050:7050"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  redis_data:
+  api_media:
+  api_uploads:

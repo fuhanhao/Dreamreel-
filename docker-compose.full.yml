@@ -1,0 +1,81 @@
+name: dreamreel
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: dreamreel-postgres
+    environment:
+      POSTGRES_DB: dreamreel
+      POSTGRES_USER: dreamreel
+      POSTGRES_PASSWORD: dreamreel_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dreamreel -d dreamreel"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: dreamreel-redis
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+    image: ghcr.io/fuhanhao/dreamreel-api:${IMAGE_TAG:-latest}
+    container_name: dreamreel-api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/dreamreel
+      SPRING_DATASOURCE_USERNAME: dreamreel
+      SPRING_DATASOURCE_PASSWORD: dreamreel_dev
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      MEDIA_STORAGE_PATH: /app/data/media
+      MEDIA_UPLOAD_PATH: /app/data/uploads
+      MEDIA_PUBLIC_BASE_URL: http://localhost:7051/api/v1/media
+      MEDIA_UPLOAD_PUBLIC_BASE_URL: http://localhost:7051/api/v1/uploads
+      JWT_SECRET: ${JWT_SECRET:-dreamreel-dev-secret-key-change-in-production-32b}
+      TOKENFREE_API_KEY: ${TOKENFREE_API_KEY:-}
+      ARK_API_KEY: ${ARK_API_KEY:-}
+    ports:
+      - "7051:7051"
+    volumes:
+      - api_media:/app/data/media
+      - api_uploads:/app/data/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:7051}
+    image: ghcr.io/fuhanhao/dreamreel-web:${IMAGE_TAG:-latest}
+    container_name: dreamreel-web
+    environment:
+      API_BASE_URL: ${API_BASE_URL:-http://localhost:7051}
+    ports:
+      - "7050:7050"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  api_media:
+  api_uploads:
