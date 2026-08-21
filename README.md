@@ -42,7 +42,7 @@ Dreamreel 是一站式 AI 短剧 SaaS 平台，面向业务用户提供**创作�
 - 无限画布：React Flow 节点编辑器，支持从流水线同步节点图
 - 管理后台：用户、项目、生成任务统计与审计
 
-![产品简介](docs/images/architecture.png)
+![产品简介](docs/images/product-intro.png)
 
 ---
 
