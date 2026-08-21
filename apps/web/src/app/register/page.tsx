@@ -31,20 +31,16 @@ export default function RegisterPage() {
           </div>
         </div>
       </section>
-      <section
-        className="relative hidden overflow-hidden lg:block"
-        style={{
-          background:
-            "radial-gradient(ellipse at 20% 50%, rgba(182,255,0,0.18), transparent 55%), #0c1008",
-        }}
-      >
-        <div
-          className="absolute inset-0 opacity-40"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.03) 3px, rgba(255,255,255,0.03) 4px)",
-          }}
+      <section className="relative hidden overflow-hidden lg:block">
+        <Image
+          src="/auth-hero.png"
+          alt=""
+          fill
+          priority
+          sizes="50vw"
+          className="object-cover"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#17131f]/70 via-transparent to-transparent" />
       </section>
     </div>
   );
