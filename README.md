@@ -42,13 +42,26 @@ Dreamreel 是一站式 AI 短剧 SaaS 平台，面向业务用户提供**创作�
 - 无限画布：React Flow 节点编辑器，支持从流水线同步节点图
 - 管理后台：用户、项目、生成任务统计与审计
 
-![登录界面](docs/images/dreamreel-login.png)
+![产品简介](docs/images/architecture.png)
 
 ---
 
 ## 2. 系统架构
 
-![系统架构](docs/images/architecture.png)
+```
+┌─────────────┐     HTTP/SSE      ┌──────────────────┐
+│  Web 前端    │ ◄──────────────► │  Spring Boot API │
+│  Next.js    │   :7050 / :7051  │  Java 21         │
+└─────────────┘                   └────────┬─────────┘
+                                           │
+                    ┌──────────────────────┼──────────────────────┐
+                    ▼                      ▼                      ▼
+             PostgreSQL 16            Redis 7              本地/OSS 媒体
+               :7052                    :7053                 存储
+                    │
+                    ▼
+        外部 AI：TokenFree（文本/图像）· 火山方舟 Seedance（视频）
+```
 
 | 模块 | 技术 |
 |------|------|
